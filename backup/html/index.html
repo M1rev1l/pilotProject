@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Conduit</title>
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+	</head>
+	<body>
+		<nav>
+			<a class="logoWrapper" href="./index.html">
+				<span class="logo greenText">conduit</span>
+			</a>
+			<span class="topNavigation">
+				<a class="greyText" href="./index.html">Home</a>
+				<a class="greyText" href="./signIn.html">Sign in</a>
+				<a class="greyText" href="./signUp.html">Sign up</a>
+			</span>
+		</nav>
+		<header id="mainHeader">
+			<div class="titleBox">
+				<h1 class="title1">conduit</h1>
+				<h2 class="title2">A place to share your knowledge.</h2>
+			</div>
+		</header>
+		<div id="contentWrap">
+			<section>
+				<div class="filter">
+					<span class="filterItem active">Global Feed</span>
+				</div>
+				<ul id="articleList"></ul>
+				<div class="pagination">
+					<ul></ul>
+				</div>
+			</section>
+			<aside class="tagBox">
+				<div class="tagBoxTitle">
+					Popular Tags
+				</div>
+				<div class="tagWrapper"></div>
+			</aside>
+		</div>
+		<footer>
+			Fork on GitHub
+		</footer>
+		<template id="articleTemplate">
+			<li class="article">
+				<div class="articleTop">
+					<a href="#">
+						<img class="profileImg" src="../resource/profile.jpg">
+					</a>
+					<div class="info">
+						<a href="#">
+							<div class="writer greenText underlineHober"></div>
+						</a>
+						<div class="date greyText lighterText font14px"></div>
+					</div>
+					<button class="like greenText" href="#">
+						<span>♥</span>
+						<span id="likeCount"></span>
+					</button>
+				</div>
+				<div class="about">
+					<a href="#">
+						<div class="title"></div>
+						<div class="description greyText font14px"></div>
+					</a>
+				</div>
+				<div class="etc">
+					<a href="#">
+						<span class="readMore greyText lighterText font14px">Read more...</span>
+						<span class="postTags greyText lighterText font14px">
+						</span>
+					</a>
+				</div>
+			</li>
+		</template>
+	</body>
+	<!--<script src="/src/js/ArticleDataSet.js"></script>-->
+	<script src="/src/js/view/ArticleList.js"></script>
+	<script src="/src/js/view/FloatSidebar.js"></script>
+	<script src="/src/js/view/PageList.js"></script>
+	<script src="/src/js/view/TagList.js"></script>
+	<script src="/src/js/service/articleListService.js"></script>
+	<script src="/src/js/service/tagListService.js"></script>
+	<script src="/src/js/ClickEventHandler.js"></script>
+	<script src="/src/js/index.js"></script>
+</html>
