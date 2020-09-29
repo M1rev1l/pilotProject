@@ -3,14 +3,18 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ArticleListService from '@service/articleListService';
 import TagListService from '@service/tagListService';
-import ArticleList from '@view/articleList/articleList';
+import * as ArticleList from '@view/articleList/articleList';
 import PageList from '@view/PageList/PageList';
 import TagList  from '@view/TagList/TagList';
 import FloatSidebar from '@view/FloatSidebar/FloatSidebar';
 
 class Main extends React.Component {
+
+
+
 	componentDidMount() {
-		const renderArticleList = new ArticleList();
+
+		const renderArticleList = new ArticleList.default();
 		const renderPageList = new PageList();
 		const renderTagList = new TagList();
 		const renderfloatSidebar = new FloatSidebar();
@@ -21,13 +25,14 @@ class Main extends React.Component {
 			renderfloatSidebar.render();
 		});
 		
-		ArticleListService.getInstance().init().then(function() {
-			renderArticleList.render();
+		ArticleListService.getInstance().init().then(() => {
 			renderPageList.render();
+			this.setState({ articleDatas: ArticleListService.getInstance().getArticleList()});
 		});
 	}
 	
 	render() {
+		const articleDatas = this.state;
 		return <div>
 			<nav>
 				<a className="logoWrapper" href="./index.html">
@@ -50,7 +55,11 @@ class Main extends React.Component {
 					<div className="filter">
 						<span className="filterItem active">Global Feed</span>
 					</div>
-					<ul id="articleList"></ul>
+					<ul id="articleList">
+							<ArticleList.ArticleList
+								articleDatas = { articleDatas }
+							/>
+					</ul>
 					<div className="pagination">
 						<ul></ul>
 					</div>

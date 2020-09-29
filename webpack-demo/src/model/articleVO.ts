@@ -1,6 +1,6 @@
 export interface ArticleVO {
 	writer: string;
-	date: Date
+	date: Date;
 	title: string;
 	description: string;
 	likeCount: number;

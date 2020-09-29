@@ -1,45 +1,52 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { ArticleVO } from '@model/articleVO';
 import ProfileImage from '@resource/profile.jpg';
 import ArticleListService from '@service/articleListService';
 import tagListService from '@service/tagListService';
 
-class articleTemplate2 extends React.Component{
+export default class Article extends React.Component {
+	state = {
+		articleData: {}
+	}
+	/*
+	get data() {
+		return articleListService.getArticleList()[this.index];
+	}
+	*/
 	render() {
-		return
-			<template id="articleTemplate">
-				<li className="article">
-					<div className="articleTop">
-						<a className="profileImg">
-						</a>
-						<div className="info">
-							<a href="#">
-								<div className="writer greenText underlineHober"></div>
-							</a>
-							<div className="date greyText lighterText font14px"></div>
-						</div>
-						<button className="like greenText">
-							<span>♥</span>
-							<span className="likeCount"></span>
-						</button>
-					</div>
-					<div className="about">
-						<a href="#">
-							<div className="title"></div>
-							<div className="description greyText font14px"></div>
-						</a>
-					</div>
-					<div className="etc">
-						<a href="#">
-							<span className="readMore greyText lighterText font14px">Read more...</span>
-							<span className="postTags greyText lighterText font14px">
-							</span>
-						</a>
-					</div>
-				</li>
-			</template>;
+		return <li className="article">
+			<div className="articleTop">
+				<a className="profileImg">
+				</a>
+				<div className="info">
+					<a>
+						<div className="writer greenText underlineHober"></div>
+					</a>
+					<div className="date greyText lighterText font14px"></div>
+				</div>
+				<button className="like greenText">
+					<span>♥</span>
+					<span className="likeCount"></span>
+				</button>
+			</div>
+			<div className="about">
+				<a>
+					<div className="title"></div>
+					<div className="description greyText font14px"></div>
+				</a>
+			</div>
+			<div className="etc">
+				<a>
+					<span className="readMore greyText lighterText font14px">Read more...</span>
+					<span className="postTags greyText lighterText font14px">
+					</span>
+				</a>
+			</div>
+		</li>;
 	}
 }
+
 const articleTemplate: any = document.querySelector("#articleTemplate");
 const articleList: Element = document.querySelector("#articleList");
 const tagListService1 = new tagListService();
@@ -48,7 +55,7 @@ const articleListService = ArticleListService.getInstance();
 
 
 
-export default class Article {
+export class a {
 
 	get data() {
 		return articleListService.getArticleList()[this.index];
