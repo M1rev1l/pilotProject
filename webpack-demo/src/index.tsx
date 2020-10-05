@@ -10,8 +10,6 @@ import FloatSidebar from '@view/FloatSidebar/FloatSidebar';
 
 class Main extends React.Component {
 
-
-
 	componentDidMount() {
 
 		const renderArticleList = new ArticleList.default();
@@ -32,7 +30,6 @@ class Main extends React.Component {
 	}
 	
 	render() {
-		const articleDatas = this.state;
 		return <div>
 			<nav>
 				<a className="logoWrapper" href="./index.html">
@@ -56,9 +53,7 @@ class Main extends React.Component {
 						<span className="filterItem active">Global Feed</span>
 					</div>
 					<ul id="articleList">
-							<ArticleList.ArticleList
-								articleDatas = { articleDatas }
-							/>
+						<ArticleList.ArticleList articleDataProps = {this.state} />
 					</ul>
 					<div className="pagination">
 						<ul></ul>

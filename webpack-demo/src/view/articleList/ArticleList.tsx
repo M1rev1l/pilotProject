@@ -2,11 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Article from '@view/articleList/Article';
 import ArticleListService from '@service/articleListService';
-import { Component } from '../Component';
+import { ArticleVO } from "@src/model/articleVO";
 
 const service = ArticleListService.getInstance();
 
-export default class ArticleList2 extends Component {
+//리액트 미적용 소스, 태그&페이지네이션에서 사용하므로 수정 전 까지 유지
+export default class ArticleList2 {
 	readonly articleParent = document.querySelector("#articleList");
 
 	clearList() {
@@ -30,34 +31,33 @@ export default class ArticleList2 extends Component {
 	}
 }
 
-export class ArticleList extends React.Component {
-
-	state = {
-		articleDatas: [
-			{
-				writer: ""
-				, date: new Date()
-				, title: ""
-				, description: ""
-				, likeCount: 0
-				, isAlreadyLike: false
-				, tag: [] as string[]
-			}
-		]
-	}
+export class ArticleList extends React.Component<{articleDataProps:any}> {
 
 	render() {
-		console.log("hello");
-		return <div>
-		</div>;
+		
+		if(this.props.articleDataProps){
+			console.log(this.props);
 
-	/*	
-{this.state.articleDatas.map(articleData => (
-	<Article
-		writer={ this.props.writer }
-	/>
-))}
-	*/
+			const articleMap = this.props.articleDataProps.articleDatas;
 
+			const mapToComponet = (data: []) => {
+				return data.map((articleData: ArticleVO, index: number) => {
+					return (
+						<li className="article" key={index}>
+							<Article
+								articleData = { articleData }
+							/>
+						</li>
+						
+					)
+				})
+			}
+
+			return mapToComponet(articleMap);
+		} else {
+			return <div>
+				this List is in loading.
+			</div>;
+		}
 	}
 }

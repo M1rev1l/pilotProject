@@ -5,45 +5,72 @@ import ProfileImage from '@resource/profile.jpg';
 import ArticleListService from '@service/articleListService';
 import tagListService from '@service/tagListService';
 
-export default class Article extends React.Component {
-	state = {
-		articleData: {}
+export default class Article extends React.Component<{articleData:ArticleVO}> {
+
+	componentDidMount() {
+		
 	}
-	/*
-	get data() {
-		return articleListService.getArticleList()[this.index];
+
+	state = this.props.articleData;
+
+	componentDidUpdate() {
+		console.log("updated");
 	}
-	*/
+
 	render() {
-		return <li className="article">
-			<div className="articleTop">
-				<a className="profileImg">
-				</a>
-				<div className="info">
-					<a>
-						<div className="writer greenText underlineHober"></div>
+		console.log(this.props.articleData.writer)
+		const articleProps = this.props.articleData;
+		const articleState = this.state;
+		function handleLikeClick() {
+			console.log(articleState)
+			if(articleProps.isAlreadyLike) {
+				articleProps.likeCount--;
+				//dom.classList.remove("active");
+				articleProps.isAlreadyLike = false;
+			} else {
+				articleProps.likeCount++;
+				//dom.classList.add("active");
+				articleProps.isAlreadyLike = true;
+			}
+		}
+		
+		return (
+			<div>
+				<div className="articleTop">
+					<a className="profileImg">
+						<img src={ProfileImage}/>
 					</a>
-					<div className="date greyText lighterText font14px"></div>
+					<div className="info">
+						<a>
+							<div className="writer greenText underlineHober">
+								{articleProps.writer}
+							</div>
+						</a>
+						<div className="date greyText lighterText font14px">
+							{articleProps.likeCount}
+						</div>
+					</div>
+					<button onClick={handleLikeClick} className="like greenText">
+						<span>♥</span>
+						<span className="likeCount">{articleProps.likeCount}</span>
+					</button>
 				</div>
-				<button className="like greenText">
-					<span>♥</span>
-					<span className="likeCount"></span>
-				</button>
+				<div className="about">
+					<a>
+						<div className="title">{articleProps.title}</div>
+						<div className="description greyText font14px">{articleProps.description}</div>
+					</a>
+				</div>
+				<div className="etc">
+					<a>
+						<span className="readMore greyText lighterText font14px">Read more...</span>
+						<span className="postTags greyText lighterText font14px">
+							{articleProps.tag}
+						</span>
+					</a>
+				</div>
 			</div>
-			<div className="about">
-				<a>
-					<div className="title"></div>
-					<div className="description greyText font14px"></div>
-				</a>
-			</div>
-			<div className="etc">
-				<a>
-					<span className="readMore greyText lighterText font14px">Read more...</span>
-					<span className="postTags greyText lighterText font14px">
-					</span>
-				</a>
-			</div>
-		</li>;
+		)
 	}
 }
 
