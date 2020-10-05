@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import Article from '@view/articleList/Article';
 import ArticleListService from '@service/articleListService';
 import { ArticleVO } from "@src/model/articleVO";

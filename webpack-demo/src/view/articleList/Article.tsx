@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { ArticleVO } from '@model/articleVO';
 import ProfileImage from '@resource/profile.jpg';
 import ArticleListService from '@service/articleListService';
@@ -7,33 +6,39 @@ import tagListService from '@service/tagListService';
 
 export default class Article extends React.Component<{articleData:ArticleVO}> {
 
-	componentDidMount() {
-		
+	state = {
+		isAlreadyLike: false
+		, likeCount: 0
 	}
 
-	state = this.props.articleData;
+	componentWillMount() {
+		this.setState(this.props.articleData);
+	}
 
-	componentDidUpdate() {
-		console.log("updated");
+	handleLikeClick(articleProps: ArticleVO) {
+		console.log(articleProps);
+
+		let likeCountVal:number = articleProps.likeCount;
+
+		if(articleProps.isAlreadyLike) {
+			likeCountVal--;
+			articleProps.likeCount = likeCountVal;
+			articleProps.isAlreadyLike = false;
+			//dom.classList.remove("active");
+			this.forceUpdate();
+		} else {
+			likeCountVal++;
+			articleProps.likeCount = likeCountVal;
+			articleProps.isAlreadyLike = true;
+			//dom.classList.add("active");
+			this.forceUpdate();
+		}
 	}
 
 	render() {
-		console.log(this.props.articleData.writer)
 		const articleProps = this.props.articleData;
-		const articleState = this.state;
-		function handleLikeClick() {
-			console.log(articleState)
-			if(articleProps.isAlreadyLike) {
-				articleProps.likeCount--;
-				//dom.classList.remove("active");
-				articleProps.isAlreadyLike = false;
-			} else {
-				articleProps.likeCount++;
-				//dom.classList.add("active");
-				articleProps.isAlreadyLike = true;
-			}
-		}
-		
+		console.log("render : " + this.state.likeCount);
+		console.log("prop: " + articleProps.likeCount)
 		return (
 			<div>
 				<div className="articleTop">
@@ -47,11 +52,11 @@ export default class Article extends React.Component<{articleData:ArticleVO}> {
 							</div>
 						</a>
 						<div className="date greyText lighterText font14px">
-							{articleProps.likeCount}
+							{this.state.likeCount}
 						</div>
 					</div>
-					<button onClick={handleLikeClick} className="like greenText">
-						<span>♥</span>
+					<button onClick={() => this.handleLikeClick(articleProps)} className="like greenText">
+						<span>♥ </span>
 						<span className="likeCount">{articleProps.likeCount}</span>
 					</button>
 				</div>
@@ -82,7 +87,7 @@ const articleListService = ArticleListService.getInstance();
 
 
 
-export class a {
+class a {
 
 	get data() {
 		return articleListService.getArticleList()[this.index];
