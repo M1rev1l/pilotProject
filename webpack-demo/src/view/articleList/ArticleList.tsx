@@ -35,10 +35,8 @@ export class ArticleList extends React.Component<{articleDataProps:any}> {
 	render() {
 		
 		if(this.props.articleDataProps){
-			console.log(this.props);
 
 			const articleMap = this.props.articleDataProps.articleDatas;
-
 			const mapToComponet = (data: []) => {
 				return data.map((articleData: ArticleVO, index: number) => {
 					return (

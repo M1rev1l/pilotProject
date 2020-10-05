@@ -6,13 +6,14 @@ import tagListService from '@service/tagListService';
 
 export default class Article extends React.Component<{articleData:ArticleVO}> {
 
-	state = {
-		isAlreadyLike: false
-		, likeCount: 0
-	}
+	handleArticleClick(articleProps: ArticleVO) {
+		const tag = articleProps.tag.map(item => item);
 
-	componentWillMount() {
-		this.setState(this.props.articleData);
+		alert("writer: " + articleProps.writer
+			+ "\ndate: " + articleProps.date
+			+ "\ntitle: " + articleProps.title
+			+ "\ndescription: " + articleProps.description
+			+ "\ntag: " + tag);
 	}
 
 	handleLikeClick(articleProps: ArticleVO) {
@@ -37,10 +38,8 @@ export default class Article extends React.Component<{articleData:ArticleVO}> {
 
 	render() {
 		const articleProps = this.props.articleData;
-		console.log("render : " + this.state.likeCount);
-		console.log("prop: " + articleProps.likeCount)
 		return (
-			<div>
+			<div onClick={() => this.handleArticleClick(articleProps)}>
 				<div className="articleTop">
 					<a className="profileImg">
 						<img src={ProfileImage}/>
@@ -52,10 +51,10 @@ export default class Article extends React.Component<{articleData:ArticleVO}> {
 							</div>
 						</a>
 						<div className="date greyText lighterText font14px">
-							{this.state.likeCount}
+							{articleProps.date.toDateString()}
 						</div>
 					</div>
-					<button onClick={() => this.handleLikeClick(articleProps)} className="like greenText">
+					<button onClick={() => this.handleLikeClick(articleProps)} className= { articleProps.isAlreadyLike? "active" + " like greenText": "like greenText" }>
 						<span>♥ </span>
 						<span className="likeCount">{articleProps.likeCount}</span>
 					</button>
@@ -79,15 +78,13 @@ export default class Article extends React.Component<{articleData:ArticleVO}> {
 	}
 }
 
+/* 레거시 소스(리액트 반영전)
 const articleTemplate: any = document.querySelector("#articleTemplate");
 const articleList: Element = document.querySelector("#articleList");
 const tagListService1 = new tagListService();
-
 const articleListService = ArticleListService.getInstance();
 
-
-
-class a {
+class Article {
 
 	get data() {
 		return articleListService.getArticleList()[this.index];
@@ -169,3 +166,4 @@ class a {
 		}
 	}
 }
+*/

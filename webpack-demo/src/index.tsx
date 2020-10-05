@@ -25,7 +25,10 @@ class Main extends React.Component {
 		
 		ArticleListService.getInstance().init().then(() => {
 			renderPageList.render();
-			this.setState({ articleDatas: ArticleListService.getInstance().getArticleList()});
+			this.setState({
+				articleDatas: ArticleListService.getInstance().getArticleList()
+				, articlePagination: ArticleListService.getInstance().getPagination()
+			});
 		});
 	}
 	
@@ -53,7 +56,9 @@ class Main extends React.Component {
 						<span className="filterItem active">Global Feed</span>
 					</div>
 					<ul id="articleList">
-						<ArticleList.ArticleList articleDataProps = {this.state} />
+						<ArticleList.ArticleList
+							articleDataProps = {this.state}
+						/>
 					</ul>
 					<div className="pagination">
 						<ul></ul>
