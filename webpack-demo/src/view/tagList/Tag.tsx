@@ -1,15 +1,29 @@
+import * as React from 'react';
 import TagListService from '@service/tagListService';
-import ArticleList from '@view/ArticleList/ArticleList';
+import {ArticleList2} from '@view/ArticleList/ArticleList';
 
-export default class Tag {
+interface Props {
+	tag: String
+}
+
+export default class TagComponent extends React.Component<Props> {
+	render() {
+		return (
+			<span>
+				{this.props.tag}
+			</span>
+		)
+	}
+}
+
+export class Tag {
 	onClick(data: string) {
 		alert("tag : " + data);
 	}
 	
 	render(item: string) {
 		const tagSpan = document.createElement("span");
-		const tagListService = new TagListService();
-		const articleList = new ArticleList();
+		const articleList = new ArticleList2();
 
 		tagSpan.append(item);
 		tagSpan.className = "tag underlineHober";
@@ -28,7 +42,7 @@ export default class Tag {
 	
 			filterSpan.append(filterItemSpan);
 	
-			tagListService.setSelectedTag(item);
+			//tagListService.setSelectedTag(item);
 			
 			articleList.render();
 		})

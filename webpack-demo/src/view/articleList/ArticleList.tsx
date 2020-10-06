@@ -1,12 +1,12 @@
 import * as React from "react";
 import Article from '@view/articleList/Article';
 import ArticleListService from '@service/articleListService';
-import { ArticleVO } from "@src/model/articleVO";
+import { ArticleVO } from "@model/articleVO";
 
 const service = ArticleListService.getInstance();
 
 //리액트 미적용 소스, 태그&페이지네이션에서 사용하므로 수정 전 까지 유지
-export default class ArticleList2 {
+export class ArticleList2 {
 	readonly articleParent = document.querySelector("#articleList");
 
 	clearList() {
@@ -18,9 +18,8 @@ export default class ArticleList2 {
 	render() {
 		this.clearList();
 
-		const {pageSize, page} = service.getPagination();
-		const articleData = service.getArticleList();
-		const pageIndex = (page - 1) * pageSize;
+		const {pageSize, pageIndex} = service.pagination;
+		const articleData = service.currentArticleList;
 
 		for (let i = 0; i < pageSize && articleData[pageIndex + i]; ++i) {
 			//const renderArticle = new Article();
@@ -30,27 +29,24 @@ export default class ArticleList2 {
 	}
 }
 
-export class ArticleList extends React.Component<{articleDataProps:any}> {
+interface Props {
+	articleList: ReadonlyArray<ArticleVO>
+}
+
+export class ArticleList extends React.Component<Props> {
+	renderList() {
+		return this.props.articleList.map((articleData, index) => {
+			return (
+				<li className="article" key={index}>
+					<Article articleData={articleData}/>
+				</li>
+			);
+		})
+	}
 
 	render() {
-		
-		if(this.props.articleDataProps){
-
-			const articleMap = this.props.articleDataProps.articleDatas;
-			const mapToComponet = (data: []) => {
-				return data.map((articleData: ArticleVO, index: number) => {
-					return (
-						<li className="article" key={index}>
-							<Article
-								articleData = { articleData }
-							/>
-						</li>
-						
-					)
-				})
-			}
-
-			return mapToComponet(articleMap);
+		if(this.props.articleList){
+			return this.renderList();
 		} else {
 			return <div>
 				this List is in loading.

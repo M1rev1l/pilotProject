@@ -4,7 +4,13 @@ import ProfileImage from '@resource/profile.jpg';
 import ArticleListService from '@service/articleListService';
 import tagListService from '@service/tagListService';
 
-export default class Article extends React.Component<{articleData:ArticleVO}> {
+interface Props {
+	articleData: Readonly<ArticleVO>;
+}
+
+const service = ArticleListService.getInstance();
+
+export default class Article extends React.Component<Props> {
 
 	handleArticleClick(articleProps: ArticleVO) {
 		const tag = articleProps.tag.map(item => item);
@@ -17,8 +23,6 @@ export default class Article extends React.Component<{articleData:ArticleVO}> {
 	}
 
 	handleLikeClick(articleProps: ArticleVO) {
-		console.log(articleProps);
-
 		let likeCountVal:number = articleProps.likeCount;
 
 		if(articleProps.isAlreadyLike) {

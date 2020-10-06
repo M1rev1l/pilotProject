@@ -1,12 +1,10 @@
 import { ArticleVO } from "@model/articleVO";
-import { Pagination } from "@src/model/pagination";
+import { PaginationVO } from "@model/pagination";
 
-export function getSamplePagination(): Pagination {
+export function getSamplePagination(): PaginationVO {
 	return {
-		page : 1
-		, total : 12
+		total : 12
 		, pageSize : 5
-		, pageCount : 1
 	};
 }
 
@@ -145,4 +143,14 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 	];
+}
+
+export function getSampleTagList():String[] {
+	return [
+		"asdf"
+		, "13"
+		, "das"
+		, "83712498"
+		, "testTag"
+	] 
 }
