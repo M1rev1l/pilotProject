@@ -145,7 +145,7 @@ export function getSampleArticleList(): ArticleVO[] {
 	];
 }
 
-export function getSampleTagList():String[] {
+export function getSampleTagList():string[] {
 	return [
 		"asdf"
 		, "13"

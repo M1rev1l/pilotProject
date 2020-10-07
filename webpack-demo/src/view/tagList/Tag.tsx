@@ -3,13 +3,17 @@ import TagListService from '@service/tagListService';
 import {ArticleList2} from '@view/ArticleList/ArticleList';
 
 interface Props {
-	tag: String
+	tag: string;
 }
 
 export default class TagComponent extends React.Component<Props> {
+	readonly handleTagBtnClick = () => {
+		alert("tag : " + this.props.tag);
+	};
+
 	render() {
 		return (
-			<span>
+			<span className="tag underlineHober">
 				{this.props.tag}
 			</span>
 		)

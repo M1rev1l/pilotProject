@@ -5,7 +5,6 @@ import ArticleListService from '@service/articleListService';
 import TagListService from '@service/tagListService';
 import {ArticleList} from '@view/articleList/ArticleList';
 import PageList from '@view/PageList/PageList';
-import { TagList }  from '@view/TagList/TagList';
 import FloatSidebar from '@view/FloatSidebar/FloatSidebar';
 import { ArticleVO } from '@model/articleVO';
 import { Pagination } from '@model/pagination';
@@ -17,7 +16,7 @@ interface Props {
 interface State {
 	articleList: ReadonlyArray<ArticleVO>;
 	articlePagination: Pagination;
-	tagList: ReadonlyArray<String>;
+	tagList: ReadonlyArray<string>;
 }
 
 const articleListService = ArticleListService.getInstance()
@@ -82,12 +81,7 @@ class Main extends React.Component<Props, State> {
 						<PageList articlePagination={this.state.articlePagination}/>
 					</div>
 				</section>
-				<aside className="tagBox">
-					<div className="tagBoxTitle">
-						Popular Tags
-					</div>
-					<TagList tagList={this.state.tagList}/>
-				</aside>
+				<FloatSidebar tagList={this.state.tagList}/>
 			</div>
 			<footer>
 				Fork on GitHub

@@ -34,23 +34,15 @@ interface Props {
 }
 
 export class ArticleList extends React.Component<Props> {
-	renderList() {
-		return this.props.articleList.map((articleData, index) => {
-			return (
+
+	render() {
+		if (this.props.articleList) {
+			return this.props.articleList.map((articleData, index) => (
 				<li className="article" key={index}>
 					<Article articleData={articleData}/>
 				</li>
-			);
-		})
-	}
-
-	render() {
-		if(this.props.articleList){
-			return this.renderList();
-		} else {
-			return <div>
-				this List is in loading.
-			</div>;
+			));
 		}
+		return <div>this List is in loading.</div>;
 	}
 }

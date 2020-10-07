@@ -7,7 +7,7 @@ function wait(time: number) {
 }
 
 export default class tagListService {
-	private _tagList: ReadonlyArray<String> = [];
+	private _tagList: ReadonlyArray<string> = [];
 
 	async loadTagList() {
 		await wait(1000);

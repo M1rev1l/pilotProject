@@ -2,6 +2,7 @@ import * as React from "react";
 import ArticleListService from '@service/articleListService';
 import { PageComponent } from '@view/pageList/Page';
 import { Pagination } from '@model/pagination';
+
 const articleListService = ArticleListService.getInstance();
 
 /*
@@ -24,31 +25,30 @@ interface Props {
 
 export default class PageList extends React.Component<Props> {
 
-	clickPageBtnHandler(index:number) {
-		console.log(index);
-		articleListService.selectPage(index);
+	readonly handleClickPage = (page: number) => {
+		console.log(page);
+		articleListService.selectPage(page);
 		this.forceUpdate();
-	}
-
+	};
 
 	renderList() {
-		return [...Array(this.props.articlePagination.pageCount)].map((value, index) => {
-			return (
-				<li key={index} onClick={() => {this.clickPageBtnHandler(index)}} 
-					className={ index === this.props.articlePagination.currentPage ? "paginationList underlineHober active" : "paginationList underlineHober"}>
-					<PageComponent  articlePagination={this.props.articlePagination} index={index+1}/>
-				</li>
-			);
-		})
+		const {pageCount, currentPage} = this.props.articlePagination;
+
+		return Array(pageCount).fill(0).map((_, index) => {
+			const page = index + 1;
+			const active = page === currentPage;
+
+			return <PageComponent page={page} active={active} onClick={this.handleClickPage}/>;
+		});
 	}
 
 	render() {
 		if(this.props.articlePagination) {
 			return (
 				<ul>
-					{ this.renderList() }
+					{this.renderList() }
 				</ul>
-			)
+			);
 		} else {
 			return (
 				<div></div>

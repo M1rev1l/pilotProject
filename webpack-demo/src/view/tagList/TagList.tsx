@@ -1,21 +1,15 @@
 import * as React from 'react';
 import TagComponent from './Tag';
-import TagListService from '@service/tagListService';
 
 interface Props {
-	tagList: ReadonlyArray<String>
+	tagList: ReadonlyArray<string>
 }
 
-export class TagList extends React.Component<Props> {
+export default class TagList extends React.Component<Props> {
 	renderTagList() {
-		return this.props.tagList.map((tagData, index) => {
-			console.log(typeof(tagData));
-			return (
-				<span className="tag underlineHober">
-					<TagComponent tag={this.props.tagList[index]}/>
-				</span>
-			)
-		})
+		return this.props.tagList.map((tagData, index) => (
+			<TagComponent key={index} tag={tagData}/>
+		));
 	}
 
 	render() {
@@ -30,17 +24,3 @@ export class TagList extends React.Component<Props> {
 		}
 	}
 }
-/*
-export class TagList2 {
-	render(){
-		const renderTag = new Tag();
-		const tagListService = new TagListService();
-
-		const tagList = tagListService.getTagList();
-		
-		tagList.forEach(function(item: string) {
-			renderTag.render(item);
-		})
-	}
-}
-*/

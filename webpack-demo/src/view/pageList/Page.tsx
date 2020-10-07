@@ -39,15 +39,25 @@ export default class Page {
 }
 
 interface Props {
-	articlePagination: Pagination
-	, index : number
+	page: number;
+	active?: boolean;
+
+	onClick(page: number): void;
 }
 
 export class PageComponent extends React.Component<Props> {
+	readonly handleClick = () => {
+		this.props.onClick(this.props.page);
+	};
+
 	render() {
-		console.log("pageComponent Render");
-		return(
-				<a className="paginationBtn">{this.props.index}</a>
-		)
+		const {page, active} = this.props;
+		const cn = `paginationList underlineHober ${active ? 'active' : ''}`;
+		
+		return (
+			<li className={cn} onClick={this.handleClick}>
+				<a className="paginationBtn">{this.props.page}</a>
+			</li>
+		);
 	}
 }
