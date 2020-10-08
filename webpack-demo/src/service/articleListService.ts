@@ -81,6 +81,18 @@ class ArticleListServiceInternal {
 	initCurrentPage() {
 		this._pagination.currentPage = 1;
 	}
+
+	@computed get pagination() {
+		return this._pagination;
+	}
+
+	@computed get pageCount() {
+		return this._pagination.pageCount;
+	}
+
+	@computed get currentPage() {
+		return this._pagination.currentPage;
+	}
 }
 
 export namespace ArticleListService {

@@ -5,10 +5,10 @@ import { computed } from 'mobx';
 
 const tagListService = TagListService.instance;
 
-export default class FloatSidebar extends React.Component {
+export default class FloatTagSidebar extends React.Component {
 	readonly box = React.createRef<HTMLElement>();
 
-	@computed windowScroll: number = window.scrollY;
+	windowScroll: number = window.scrollY;
 
 	readonly handleWindowScroll = () => {
 		this.windowScroll = window.scrollY;

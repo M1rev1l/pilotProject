@@ -9,21 +9,17 @@ interface Props {
 
 @observer
 export default class Article extends React.Component<Props> {
-	readonly handleArticleClick = () => {
-		const tag = articleProps.tag.map(item => item);
-
-		alert("writer: " + articleProps.writer
-			+ "\ndate: " + articleProps.date
-			+ "\ntitle: " + articleProps.title
-			+ "\ndescription: " + articleProps.description
-			+ "\ntag: " + tag);
-	}
+	
 
 	render() {
-		const {handleLikeClick} = this.props.itemVM;
+		const {
+			writer, date, isAlreadyLike, likeCount, title, description, tag,
+			handleLikeClick,
+			handleArticleClick
+		} = this.props.itemVM;
 
 		return (
-			<div onClick={() => this.handleArticleClick(articleProps)}>
+			<div onClick={handleArticleClick}>
 				<div className="articleTop">
 					<a className="profileImg">
 						<img src={ProfileImage}/>
@@ -31,29 +27,29 @@ export default class Article extends React.Component<Props> {
 					<div className="info">
 						<a>
 							<div className="writer greenText underlineHober">
-								{articleProps.writer}
+								{writer}
 							</div>
 						</a>
 						<div className="date greyText lighterText font14px">
-							{articleProps.date.toDateString()}
+							{date}
 						</div>
 					</div>
-					<button onClick={handleLikeClick} className= { articleProps.isAlreadyLike? "active" + " like greenText": "like greenText" }>
+					<button onClick={handleLikeClick} className= { isAlreadyLike? "active" + " like greenText": "like greenText" }>
 						<span>♥ </span>
-						<span className="likeCount">{articleProps.likeCount}</span>
+						<span className="likeCount">{likeCount}</span>
 					</button>
 				</div>
 				<div className="about">
 					<a>
-						<div className="title">{articleProps.title}</div>
-						<div className="description greyText font14px">{articleProps.description}</div>
+						<div className="title">{title}</div>
+						<div className="description greyText font14px">{description}</div>
 					</a>
 				</div>
 				<div className="etc">
 					<a>
 						<span className="readMore greyText lighterText font14px">Read more...</span>
 						<span className="postTags greyText lighterText font14px">
-							{articleProps.tag}
+							{tag}
 						</span>
 					</a>
 				</div>

@@ -5,7 +5,7 @@ import {ArticleListService} from '@service/articleListService';
 import {TagListService} from '@service/tagListService';
 import ArticleList from '@view/articleList/ArticleList';
 import PageList from '@view/PageList/PageList';
-import FloatSidebar from '@view/FloatSidebar/FloatSidebar';
+import FloatTagSidebar from '@src/view/floatSidebar/FloatTagSidebar';
 import { observer } from 'mobx-react';
 
 const tagListService = TagListService.instance;
@@ -48,7 +48,7 @@ class Main extends React.Component {
 						<PageList/>
 					</div>
 				</section>
-				<FloatSidebar/>
+				<FloatTagSidebar/>
 			</div>
 			<footer>
 				Fork on GitHub
