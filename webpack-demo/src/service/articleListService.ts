@@ -1,16 +1,20 @@
 import { ArticleVO } from "@model/articleVO";
 import { Pagination } from "@model/pagination";
+import { TagListService }  from "@service/tagListService";
 import {getSamplePagination, getSampleArticleList} from "@service/sampleData";
+import { action, computed, observable, runInAction } from "mobx";
 
 function wait(time: number) {
 	return new Promise(resolve => setTimeout(resolve, time));
 }
 
-export default class ArticleListService {
-	private _articleList: ReadonlyArray<ArticleVO> = [];
-	private _pagination: Pagination = null;
+const tagListService = TagListService.instance;
 
-	private constructor() {
+class ArticleListServiceInternal {
+	@observable private _articleList: ReadonlyArray<ArticleVO> = [];
+	@observable private _pagination: Pagination = null;
+
+	constructor() {
 
 	}
 	
@@ -36,34 +40,49 @@ export default class ArticleListService {
 			this.loadArticleList()
 		]);
 	
-		this._pagination = new Pagination(d1);
-		this._articleList = d2;
+		runInAction(() => {
+			this._pagination = new Pagination(d1);
+			this._articleList = d2;
+		});
 	};
 
-	get currentArticleList() {
-		return this._articleList.slice(0, this._pagination.pageSize);
+	@computed private get filterArticleList() {
+		const {selectedTag} = tagListService;
+		if (selectedTag) {
+			return this._articleList.filter(listData => (
+				listData.tag.some(tagData => tagData === selectedTag)
+			));
+		}
+		return this._articleList;
 	}
 
-	get pagination() {
-		return this._pagination;
+	get currentArticleList() {
+		if (this._pagination) {
+			const {currentPage, pageSize} = this._pagination;
+
+			const endPage = currentPage * pageSize;
+			const startPage = endPage - pageSize;
+			
+			return this.filterArticleList?.slice(startPage, endPage) ?? [];
+		}
+
+		return this.filterArticleList;
 	}
-	
+
+	@action
 	selectPage(selectedPage: number) {
-		console.log(this._pagination);
 		this._pagination.currentPage = selectedPage;
 	}
 
-	like() {
-
+	@computed get total() {
+		return this.filterArticleList.length;
 	}
-
-	unlike() {
-
+	
+	initCurrentPage() {
+		this._pagination.currentPage = 1;
 	}
+}
 
-	private static instance = new ArticleListService();
-
-	static getInstance() {
-		return this.instance;
-	}
+export namespace ArticleListService {
+	export const instance = new ArticleListServiceInternal();
 }

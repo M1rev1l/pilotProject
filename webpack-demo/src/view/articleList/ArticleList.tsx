@@ -1,48 +1,34 @@
 import * as React from "react";
+import { observer } from "mobx-react";
 import Article from '@view/articleList/Article';
-import ArticleListService from '@service/articleListService';
-import { ArticleVO } from "@model/articleVO";
+import { ArticleListVM } from "@src/vm/article/articleListVM";
 
-const service = ArticleListService.getInstance();
+@observer
+export default class ArticleList extends React.Component {
+	readonly vm = new ArticleListVM();
 
-//리액트 미적용 소스, 태그&페이지네이션에서 사용하므로 수정 전 까지 유지
-export class ArticleList2 {
-	readonly articleParent = document.querySelector("#articleList");
+	// disposer, autorun 
+	// disposer: Disposer = null;
 
-	clearList() {
-		while( this.articleParent.firstChild ){
-			this.articleParent.removeChild( this.articleParent.firstChild );
-		}
-	}
+	// componentDidMount() {
+	// 	this.disposer = autorun(() => {
+	// 		console.log(`길이 : ${service.currentArticleList.length}`)
+	// 	});
+	// }
 
-	render() {
-		this.clearList();
-
-		const {pageSize, pageIndex} = service.pagination;
-		const articleData = service.currentArticleList;
-
-		for (let i = 0; i < pageSize && articleData[pageIndex + i]; ++i) {
-			//const renderArticle = new Article();
-
-			//renderArticle.render();
-		}
-	}
-}
-
-interface Props {
-	articleList: ReadonlyArray<ArticleVO>
-}
-
-export class ArticleList extends React.Component<Props> {
+	// componentWillUnmount() {
+	// 	this.disposer();
+	// }
 
 	render() {
-		if (this.props.articleList) {
-			return this.props.articleList.map((articleData, index) => (
-				<li className="article" key={index}>
-					<Article articleData={articleData}/>
-				</li>
-			));
+		if (this.vm.isEmpty) {
+			return <div></div>;
 		}
-		return <div>this List is in loading.</div>;
+		
+		return this.vm.itemVMList.map((itemVM, index) => (
+			<li className="article" key={index}>
+				<Article itemVM={itemVM}/>
+			</li>
+		));
 	}
 }

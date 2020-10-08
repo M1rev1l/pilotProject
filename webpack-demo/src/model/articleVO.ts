@@ -1,3 +1,5 @@
+import { observable } from "mobx";
+
 export interface ArticleVO {
 	writer: string;
 	date: Date;

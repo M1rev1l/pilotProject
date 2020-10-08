@@ -1,42 +1,42 @@
 import * as React from 'react';
 import TagList  from '@view/TagList/TagList';
+import {TagListService} from '@service/tagListService';
+import { computed } from 'mobx';
 
-interface Props {
-	tagList: ReadonlyArray<string>
-}
+const tagListService = TagListService.instance;
 
-export default class FloatSidebar extends React.Component<Props> {
-	componentDidMount() {
-		const htmlDom: HTMLElement = document.querySelector("html");
-		const sidebar: HTMLElement = document.querySelector(".tagBox");
-	
-		let top: number = htmlDom.scrollTop;
-	
-		window.addEventListener("scroll", function() {
-			top = htmlDom.scrollTop;
-			let yPosition: number = top - 300;
-			
-			if(top >= 300) {
-				sidebar.style.transform = "translate(0," + yPosition +"px)";
-			} else {
-				sidebar.style.transform = "translate(0, 0)";
-			}
-		})
-		
-		//새로고침 처리
-		if(top >= 300) {
-			const refreshYPosition: number = top - 300;
-	
-			sidebar.style.transform = "translate(0," + refreshYPosition +"px)";
-		}
+export default class FloatSidebar extends React.Component {
+	readonly box = React.createRef<HTMLElement>();
+
+	@computed windowScroll: number = window.scrollY;
+
+	readonly handleWindowScroll = () => {
+		this.windowScroll = window.scrollY;
+	};
+
+	@computed get boxStyle(): React.CSSProperties {
+		return {
+			transform: this.windowScroll > 300 
+				? `translate(0, ${this.windowScroll - 300}px)`
+				: 'translate(0, 0)'
+		};
 	}
+
+	componentDidMount() {
+		window.addEventListener("scroll", this.handleWindowScroll);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleWindowScroll);
+	}
+
 	render() {
 		return (
-			<aside className="tagBox">
+			<aside className="tagBox" ref={this.box} style={this.boxStyle}>
 				<div className="tagBoxTitle">
 					Popular Tags
 				</div>
-				<TagList tagList={this.props.tagList}/>
+				<TagList tagList={tagListService.tagList}/>
 			</aside>
 		)
 	}

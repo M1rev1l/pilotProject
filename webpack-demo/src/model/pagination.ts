@@ -1,3 +1,5 @@
+import { observable } from "mobx";
+
 export interface PaginationVO {
 	total: number;
 	pageSize: number;
@@ -7,7 +9,7 @@ export class Pagination implements PaginationVO {
 	readonly total: number;
 	readonly pageSize: number = null;
 
-	private page: number = null;
+	@observable private page: number = 1;
 
 	constructor(vo: PaginationVO) {
 		this.total = vo.total;
@@ -17,16 +19,12 @@ export class Pagination implements PaginationVO {
 	get pageCount() {
 		return Math.floor(this.total / this.pageSize) + (this.total % this.pageSize === 0 ? 0 : 1)
 	}
-
-	get pageIndex() {
-		return (this.page - 1) * this.pageSize
+	
+	get currentPage() {
+		return this.page;
 	}
 
 	set currentPage(page: number) {
 		this.page = page;
-	}
-
-	get currentPage() {
-		return this.page;
 	}
 }

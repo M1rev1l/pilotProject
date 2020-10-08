@@ -1,56 +1,23 @@
 import './index.css';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import ArticleListService from '@service/articleListService';
-import TagListService from '@service/tagListService';
-import {ArticleList} from '@view/articleList/ArticleList';
+import {ArticleListService} from '@service/articleListService';
+import {TagListService} from '@service/tagListService';
+import ArticleList from '@view/articleList/ArticleList';
 import PageList from '@view/PageList/PageList';
 import FloatSidebar from '@view/FloatSidebar/FloatSidebar';
-import { ArticleVO } from '@model/articleVO';
-import { Pagination } from '@model/pagination';
+import { observer } from 'mobx-react';
 
-interface Props {
+const tagListService = TagListService.instance;
+const articleListService = ArticleListService.instance;
 
-}
-
-interface State {
-	articleList: ReadonlyArray<ArticleVO>;
-	articlePagination: Pagination;
-	tagList: ReadonlyArray<string>;
-}
-
-const articleListService = ArticleListService.getInstance()
-const tagListService = TagListService.getInstance();
-
-class Main extends React.Component<Props, State> {
-	state: State = {
-		articleList: [],
-		articlePagination: null,
-		tagList: []
-	};
-
-	componentDidMount() {
-		
-		tagListService.init().then(() => {
-			this.setState({
-				tagList: tagListService.TagList
-			})
-		});
-		
-		articleListService.init().then(() => {
-			this.setState({
-				articleList: articleListService.currentArticleList
-				, articlePagination: articleListService.pagination
-			});
-		});
+@observer
+class Main extends React.Component {
+	async componentDidMount() {
+		await tagListService.init();
+		await articleListService.init();
 	}
-	/*
-	setPage = () {
-		this.setState( prevState => ({
-			articlePagination: 1
-		}));
-	}
-	*/
+
 	render() {
 		return <div>
 			<nav>
@@ -75,13 +42,13 @@ class Main extends React.Component<Props, State> {
 						<span className="filterItem active">Global Feed</span>
 					</div>
 					<ul id="articleList">
-						<ArticleList articleList={this.state.articleList}/>
+						<ArticleList/>
 					</ul>
 					<div className="pagination">
-						<PageList articlePagination={this.state.articlePagination}/>
+						<PageList/>
 					</div>
 				</section>
-				<FloatSidebar tagList={this.state.tagList}/>
+				<FloatSidebar/>
 			</div>
 			<footer>
 				Fork on GitHub

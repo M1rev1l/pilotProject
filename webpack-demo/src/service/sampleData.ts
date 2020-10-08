@@ -55,7 +55,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir1"
+			writer  : "hanmir5"
 			, date  : new Date()
 			, title : "testTitle1"
 			, description : "testDescription1"
@@ -66,7 +66,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir2"
+			writer  : "hanmir6"
 			, date  : new Date()
 			, title : "testTitle2"
 			, description : "testDescription2"
@@ -77,7 +77,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir3"
+			writer  : "hanmir7"
 			, date  : new Date()
 			, title : "testTitle3"
 			, description : "testDescription3"
@@ -88,7 +88,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir4"
+			writer  : "hanmir8"
 			, date  : new Date()
 			, title : "testTitle4"
 			, description : "testDescription4"
@@ -99,7 +99,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir1"
+			writer  : "hanmir9"
 			, date  : new Date()
 			, title : "testTitle1"
 			, description : "testDescription1"
@@ -110,7 +110,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir2"
+			writer  : "hanmir10"
 			, date  : new Date()
 			, title : "testTitle2"
 			, description : "testDescription2"
@@ -121,7 +121,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir3"
+			writer  : "hanmir11"
 			, date  : new Date()
 			, title : "testTitle3"
 			, description : "testDescription3"
@@ -132,7 +132,7 @@ export function getSampleArticleList(): ArticleVO[] {
 			]
 		}
 		, {
-			writer  : "hanmir4"
+			writer  : "hanmir12"
 			, date  : new Date()
 			, title : "testTitle4"
 			, description : "testDescription4"

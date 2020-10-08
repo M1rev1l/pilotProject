@@ -1,58 +1,34 @@
 import * as React from "react";
-import ArticleListService from '@service/articleListService';
-import { PageComponent } from '@view/pageList/Page';
-import { Pagination } from '@model/pagination';
+import {ArticleListService} from '@service/articleListService';
+import PageComponent from '@view/pageList/Page';
+import { observer } from "mobx-react";
 
-const articleListService = ArticleListService.getInstance();
+const articleListService = ArticleListService.instance;
 
-/*
-export default class PageList {
-	render() {
-		const renderPage = new Page();
-
-		const {pageCount} = articleListService.pagination;
-
-		for(let i = 1; i <= pageCount; i++) {
-			renderPage.render(i);
-		}
-	}
-}
-*/
-
-interface Props {
-	articlePagination: Pagination
-}
-
-export default class PageList extends React.Component<Props> {
+@observer
+export default class PageList extends React.Component {
 
 	readonly handleClickPage = (page: number) => {
-		console.log(page);
 		articleListService.selectPage(page);
-		this.forceUpdate();
 	};
 
-	renderList() {
-		const {pageCount, currentPage} = this.props.articlePagination;
-
-		return Array(pageCount).fill(0).map((_, index) => {
-			const page = index + 1;
-			const active = page === currentPage;
-
-			return <PageComponent page={page} active={active} onClick={this.handleClickPage}/>;
-		});
-	}
-
 	render() {
-		if(this.props.articlePagination) {
+		const pagination = articleListService.pagination;
+
+		if (pagination) {
+			const {pageCount, currentPage} = pagination;
 			return (
 				<ul>
-					{this.renderList() }
+					{Array(pageCount).fill(0).map((_, index) => {
+						const page = index + 1;
+						const active = page === currentPage;
+
+						return <PageComponent key={index} page={page} active={active} onClick={this.handleClickPage}/>;
+					})}
 				</ul>
 			);
-		} else {
-			return (
-				<div></div>
-			)
 		}
+
+		return <div></div>;
 	}
 }

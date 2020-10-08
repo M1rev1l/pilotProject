@@ -1,13 +1,14 @@
 import {getSampleTagList} from "@service/sampleData";
+import { computed, observable } from "mobx";
 
-let selectedTag: string = "default";
 
 function wait(time: number) {
 	return new Promise(resolve => setTimeout(resolve, time));
 }
 
-export default class tagListService {
-	private _tagList: ReadonlyArray<string> = [];
+export class TagListServiceInternal {
+	@observable private _tagList: ReadonlyArray<string> = [];
+	@observable private _selectedTag: string = null;
 
 	async loadTagList() {
 		await wait(1000);
@@ -21,21 +22,19 @@ export default class tagListService {
 		this._tagList = await this.loadTagList();
 	};
 	
-	get TagList() {
+	@computed get tagList() {
 		return this._tagList;
 	}
 	
-	get SelectedTag() {
-		return selectedTag;
+	@computed get selectedTag() {
+		return this._selectedTag;
 	}
 	
-	set SelectedTag(value: string) {
-		selectedTag = value;
+	set selectedTag(value: string) {
+		this._selectedTag = value;
 	};
+}
 
-	private static instance = new tagListService();
-
-	static getInstance() {
-		return this.instance;
-	}
+export namespace TagListService {
+	export const instance = new TagListServiceInternal();
 }
