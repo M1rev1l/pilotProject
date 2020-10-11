@@ -1,19 +1,20 @@
 import * as React from 'react';
+import {TagVM} from '@src/vm/tag/tagVM'
 import TagComponent from './Tag';
+import { observer } from 'mobx-react';
 
-interface Props {
-	tagList: ReadonlyArray<string>
-}
+@observer
+export default class TagList extends React.Component {
+	readonly vm = new TagVM();
 
-export default class TagList extends React.Component<Props> {
 	renderTagList() {
-		return this.props.tagList.map((tagData, index) => (
+		return this.vm.tagListMap.map((tagData, index) => (
 			<TagComponent key={index} tag={tagData}/>
 		));
 	}
 
 	render() {
-		if(this.props.tagList){
+		if(this.vm.isEmpty){
 			return (
 				<div className="tagWrapper">
 					{this.renderTagList()}

@@ -36,7 +36,7 @@ export default class FloatTagSidebar extends React.Component {
 				<div className="tagBoxTitle">
 					Popular Tags
 				</div>
-				<TagList tagList={tagListService.tagList}/>
+				<TagList/>
 			</aside>
 		)
 	}
