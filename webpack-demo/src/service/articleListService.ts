@@ -62,11 +62,15 @@ class ArticleListServiceInternal {
 
 			const endPage = currentPage * pageSize;
 			const startPage = endPage - pageSize;
-			
+
 			return this.filterArticleList?.slice(startPage, endPage) ?? [];
 		}
 
 		return this.filterArticleList;
+	}
+
+	get filteredArticleListLength() {
+		return this.filterArticleList.length;
 	}
 
 	@action
@@ -76,6 +80,10 @@ class ArticleListServiceInternal {
 
 	@computed get total() {
 		return this.filterArticleList.length;
+	}
+
+	set total(total: number) {
+		this._pagination.total = total;
 	}
 	
 	initCurrentPage() {

@@ -19,6 +19,7 @@ export class TagVM {
 
 	handleTagComponentClick(tag: string) {
 		tagService.selectedTag = tag;
+		articleService.total = articleService.filteredArticleListLength;
 		articleService.initCurrentPage();
 	}
 }

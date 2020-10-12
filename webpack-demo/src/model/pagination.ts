@@ -6,9 +6,9 @@ export interface PaginationVO {
 }
 
 export class Pagination implements PaginationVO {
-	readonly total: number;
 	readonly pageSize: number = null;
-
+	
+	@observable total: number;
 	@observable private page: number = 1;
 
 	constructor(vo: PaginationVO) {

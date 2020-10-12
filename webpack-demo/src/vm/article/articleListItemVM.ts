@@ -10,32 +10,24 @@ export class ArticleListItemVM {
 	}
 
 	readonly handleArticleClick = () => {
-		/*
-		const tag = articleProps.tag.map(item => item);
+		const tag = this.data.tag.map(item => item);
 
-		alert("writer: " + articleProps.writer0
-			+ "\ndate: " + articleProps.date
-			+ "\ntitle: " + articleProps.title
-			+ "\ndescription: " + articleProps.description
+		alert("writer: " + this.data.writer
+			+ "\ndate: " + this.data.date
+			+ "\ntitle: " + this.data.title
+			+ "\ndescription: " + this.data.description
 			+ "\ntag: " + tag);
-		*/
 	}
 
 	readonly handleLikeClick = () => {
 		if(this.data.isAlreadyLike) {
 			alert("unlike");
-			/*
-			likeCountVal--;
-			articleProps.likeCount = likeCountVal;
-			articleProps.isAlreadyLike = false;
-			*/
+			this.data.likeCount--;
+			this.data.isAlreadyLike = false;
 		} else {
 			alert("like");
-			/*
-			likeCountVal++;
-			articleProps.likeCount = likeCountVal;
-			articleProps.isAlreadyLike = true;
-			*/
+			this.data.likeCount++;
+			this.data.isAlreadyLike = true;
 		}
 	}
 
