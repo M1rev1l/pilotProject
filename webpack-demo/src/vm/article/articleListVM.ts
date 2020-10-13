@@ -14,6 +14,6 @@ export class ArticleListVM {
 	}
 
 	@computed get isEmpty() {
-		return !this.articleList?.length ?? true;
+		return !this.articleList?.length;
 	}
 }

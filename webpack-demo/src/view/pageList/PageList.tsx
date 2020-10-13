@@ -14,7 +14,7 @@ export default class PageList extends React.Component {
 		if (this.vm.isEmpty) {
 			return (
 				<ul>
-					{this.vm.makePageArray().map((_, index) => {
+					{this.vm.makePageArray.map((_, index) => {
 						const page = index + 1;
 						const active = page === articleListService.currentPage;
 

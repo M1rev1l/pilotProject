@@ -69,7 +69,7 @@ class ArticleListServiceInternal {
 		return this.filterArticleList;
 	}
 
-	get filteredArticleListLength() {
+	@computed get filteredArticleListLength() {
 		return this.filterArticleList.length;
 	}
 

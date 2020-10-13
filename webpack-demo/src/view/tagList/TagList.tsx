@@ -8,7 +8,7 @@ export default class TagList extends React.Component {
 	readonly vm = new TagVM();
 
 	renderTagList() {
-		return this.vm.tagListMap.map((tagData, index) => (
+		return this.vm.tagList.map((tagData, index) => (
 			<TagComponent key={index} tag={tagData}/>
 		));
 	}
